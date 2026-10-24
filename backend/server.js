@@ -25,6 +25,11 @@ const webhookController = require('./src/controllers/webhookController');
 app.get('/webhook', webhookController.verifyWebhook);
 app.post('/webhook', webhookController.handleWebhookEvent);
 
+app.use('/api', require('./src/routes/pagesRoutes'));
+
+app.use('/api/telegram', require('./src/routes/telegramRoutes'));
+require('./src/services/telegramBot').startAll();
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
